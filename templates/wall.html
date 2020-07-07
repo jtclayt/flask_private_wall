@@ -1,0 +1,64 @@
+<!--
+  Author: Justin Clayton
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Private Wall</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
+  <link rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+  <header class="navbar text-light">
+    <h1>Coding Dojo Wall</h1>
+    <div>
+      <p>Welcome, {{ session['user_fn'] }}</p>
+      <a href="/logout">Log Out</a>
+    </div>
+  </header>
+  <div class="container">
+    <div class="row">
+      <section class="bg-light col-md-5 text-center">
+        <h2>Message(s) for You</h2>
+        <div class="messages-container">
+          <div class="message">
+            <div class="message-body">
+              <p>
+                Someone said <span class="text-primary">(3 hours ago)</span>:
+              </p>
+              <p>
+                This is the message here.
+              </p>
+            </div>
+            <button class="btn btn-danger">Delete</button>
+          </div>
+        </div>
+      </section>
+      <section class="bg-light col-md-5 text-center">
+        <h2>Send Message</h2>
+
+        <form class="mt-5" action="{{ url_for('send_message') }}">
+          <label for="recipient">Select a Recipient:</label>
+          <select name="recipient" id="recipient"
+            class="custom-select custom-select-md col-md-10 mb-3">
+            {% for other_user in users: %}
+            {% if other_user.id != session['user_id'] %}
+            <option value="{{ other_user.id }}">{{ other_user.first_name }}</option>
+            {% endif %}
+            {% endfor %}
+          </select>
+          <textarea class="col-md-10" name="message" rows="5" required></textarea>
+          <button type="submit" class="btn btn-primary mt-3">Send!</button>
+        </form>
+      </section>
+    </div>
+  </div>
+</body>
+</html>

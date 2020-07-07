@@ -3,10 +3,81 @@
 */
 
 /* HTML selector rules */
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
+form > p {
+  margin: 15px 0 5px 0;
+}
+
+header.navbar {
+  padding: 10px 100px;
+  background-color: rgb(40, 127, 161);
+  justify-content: space-between;
+}
+
+header > div {
+  display: flex;
+  font-size: 1.3rem;
+}
+
+header > div > a {
+  margin-left: 20px;
+  color: cornsilk;
+}
+
+header > div > a:hover {
+  color: rgb(187, 147, 118);
+  text-decoration: none;
+}
+
+main, section {
+  margin-top: 50px;
+  padding: 50px;
+  border-radius: 20px;
+  box-shadow: 5px 5px 3px rgb(202, 197, 190);
+}
+
+section {
+  height: 500px;
+}
 
 /* Class rules */
+.hidden {
+  display: none;
+}
 
+.input-group {
+  margin: 20px;
+}
+
+.message {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 15px;
+  background-color: rgb(255, 251, 235);
+  border-radius: 10px;
+}
+
+.message-body {
+  justify-content: flex-start;
+}
+
+.message-body > p:nth-child(2) {
+  margin-left: 15px;
+}
+
+.message-container {
+  overflow-y: scroll;
+}
+
+.row {
+  justify-content: space-between;
+}
 
 /* ID rules */
 
