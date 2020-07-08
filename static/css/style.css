@@ -59,6 +59,7 @@ section {
   justify-content: space-between;
   align-items: center;
   padding: 5px 15px;
+  margin: 10px;
   background-color: rgb(255, 251, 235);
   border-radius: 10px;
 }
@@ -67,11 +68,12 @@ section {
   justify-content: flex-start;
 }
 
-.message-body > p:nth-child(2) {
-  margin-left: 15px;
+p.message-content {
+  margin-left: 10px;
 }
 
-.message-container {
+.messages-container {
+  height: 375px;
   overflow-y: scroll;
 }
 

@@ -21,7 +21,45 @@
     <h1 class="text-light">Coding Dojo Wall</h1>
   </header>
   <main class="container bg-light">
-    <form id="register" action="{{ url_for('register') }}" method="POST">
+    <form id="login" action="{{ url_for('login') }}" method="POST">
+      <h2>Log In</h2>
+
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+            {% if session['postFailure']: %}
+            <p class="text-danger">{{ message }}</p>
+            {% else: %}
+            <p class="text-success">{{ message }}</p>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      <div class="input-group col-md-8 mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Email:</span>
+        </div>
+        <input name="email" type="email" class="form-control" minlength="2"
+          maxlength="255" required>
+      </div>
+
+      <div class="input-group col-md-8 mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Password:</span>
+        </div>
+        <input name="pw" type="password" class="form-control"
+          minlength="8" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Log In</button>
+      <p id="info-text">Not registered?</p>
+      <button id="swap-registration" class="btn btn-success">
+        Go to Registration
+      </button>
+    </form>
+
+    <form id="register" class="hidden" action="{{ url_for('register') }}" method="POST">
       <h2>Registration</h2>
 
       <div class="input-group col-md-8 mb-3">
@@ -67,31 +105,6 @@
       <button type="submit" class="btn btn-primary">Register</button>
       <p id="info-text">Already registered?</p>
       <button id="swap-login" class="btn btn-success">Go to Log In</button>
-    </form>
-    <form id="login" class="hidden" action="{{ url_for('login') }}" method="POST">
-      <h2>Log In</h2>
-
-      <div class="input-group col-md-8 mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text">Email:</span>
-        </div>
-        <input name="email" type="email" class="form-control" minlength="2"
-          maxlength="255" required>
-      </div>
-
-      <div class="input-group col-md-8 mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text">Password:</span>
-        </div>
-        <input name="pw" type="password" class="form-control"
-          minlength="8" required>
-      </div>
-
-      <button type="submit" class="btn btn-primary">Log In</button>
-      <p id="info-text">Not registered?</p>
-      <button id="swap-registration" class="btn btn-success">
-        Go to Registration
-      </button>
     </form>
   </main>
 </body>

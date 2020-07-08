@@ -20,31 +20,48 @@
     <h1>Coding Dojo Wall</h1>
     <div>
       <p>Welcome, {{ session['user_fn'] }}</p>
+      <a href="/wall">Home</a>
       <a href="/logout">Log Out</a>
     </div>
   </header>
   <div class="container">
     <div class="row">
-      <section class="bg-light col-md-5 text-center">
-        <h2>Message(s) for You</h2>
+      <section class="bg-light col-md-5">
+        <h2>
+          <span class="text-success">{{ numMessages }}</span>
+          Message(s) for You
+        </h2>
         <div class="messages-container">
+          {% for message in messages: %}
           <div class="message">
             <div class="message-body">
               <p>
-                Someone said <span class="text-primary">(3 hours ago)</span>:
+                {{ message.first_name }} said
+                <span class="text-primary">({{ message.time_since }})</span>:
               </p>
-              <p>
-                This is the message here.
+              <p class='message-content'>
+                {{ message.message }}
               </p>
             </div>
-            <button class="btn btn-danger">Delete</button>
+            <a class="btn btn-danger"
+              href="{{ url_for('delete_message', message_id=message['id']) }}"
+            >Delete</a>
           </div>
+          {% endfor %}
         </div>
       </section>
       <section class="bg-light col-md-5 text-center">
         <h2>Send Message</h2>
 
-        <form class="mt-5" action="{{ url_for('send_message') }}">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+            <p class="text-success">{{ message }}</p>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+        <form class="mt-5" action="{{ url_for('send_message') }}" method="POST">
           <label for="recipient">Select a Recipient:</label>
           <select name="recipient" id="recipient"
             class="custom-select custom-select-md col-md-10 mb-3">
@@ -54,7 +71,8 @@
             {% endif %}
             {% endfor %}
           </select>
-          <textarea class="col-md-10" name="message" rows="5" required></textarea>
+          <textarea class="col-md-10" name="message" rows="5" maxlength="255"
+            required></textarea>
           <button type="submit" class="btn btn-primary mt-3">Send!</button>
         </form>
       </section>
